@@ -9,6 +9,7 @@ export const runtime = "edge";
 const app = new Hono().basePath("/api");
 
 app.onError((err, c) => {
+  console.log(err);
   if (err instanceof HTTPException) {
     return err.getResponse();
   }

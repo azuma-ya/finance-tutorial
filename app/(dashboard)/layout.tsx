@@ -1,12 +1,13 @@
+import { Fragment, ReactNode } from "react";
+
 import Header from "@/components/header";
-import { ReactNode } from "react";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
+    <Fragment>
       <Header />
       <main className="px-3 lg:px-14">{children}</main>
-    </>
+    </Fragment>
   );
 };
 
