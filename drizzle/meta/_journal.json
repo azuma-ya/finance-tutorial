@@ -15,6 +15,20 @@
       "when": 1722051749002,
       "tag": "0001_robust_killmonger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1732007972227,
+      "tag": "0002_steady_spectrum",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1732017811549,
+      "tag": "0003_freezing_invaders",
+      "breakpoints": true
     }
   ]
 }

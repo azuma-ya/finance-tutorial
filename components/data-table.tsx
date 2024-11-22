@@ -2,11 +2,12 @@
 
 import * as React from "react";
 
-import {
+import type {
   ColumnDef,
   ColumnFiltersState,
   Row,
-  SortingState,
+  SortingState} from "@tanstack/react-table";
+import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -26,6 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import useConfirm from "@/hooks/use-confirm";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -42,6 +44,11 @@ export function DataTable<TData, TValue>({
   onDelete,
   disabled,
 }: DataTableProps<TData, TValue>) {
+  const [ConfirmationDailog, confirm] = useConfirm(
+    "Are your sure?",
+    "You are about to perform a bluk delete.",
+  );
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -67,6 +74,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
+      <ConfirmationDailog />
       <div className="flex items-center py-4">
         <Input
           placeholder={`Filter ${filterKey}...`}
@@ -81,13 +89,17 @@ export function DataTable<TData, TValue>({
             disabled={disabled}
             size="sm"
             variant="outline"
-            className="ml-auto font-normal text-xs"
-            onClick={() => {
-              onDelete(table.getFilteredSelectedRowModel().rows);
-              table.resetRowSelection();
+            className="ml-auto text-xs font-normal"
+            onClick={async () => {
+              const ok = await confirm();
+
+              if (ok) {
+                onDelete(table.getFilteredSelectedRowModel().rows);
+                table.resetRowSelection();
+              }
             }}
           >
-            <Trash className="size-4 mr-2" />
+            <Trash className="mr-2 size-4" />
             Delete ({table.getFilteredSelectedRowModel().rows.length})
           </Button>
         )}

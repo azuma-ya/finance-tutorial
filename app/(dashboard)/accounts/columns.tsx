@@ -1,12 +1,13 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { InferResponseType } from "hono";
+import type { ColumnDef } from "@tanstack/react-table";
+import type { InferResponseType } from "hono";
 import { ArrowUpDown } from "lucide-react";
 
+import Actions from "@/app/(dashboard)/accounts/actions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { client } from "@/lib/hono";
+import type { client } from "@/lib/hono";
 
 export type ResponseType = InferResponseType<
   typeof client.api.accounts.$get,
@@ -45,9 +46,13 @@ export const columns: ColumnDef<ResponseType>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ArrowUpDown className="ml-2 size-4" />
         </Button>
       );
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <Actions id={row.original.id} />,
   },
 ];

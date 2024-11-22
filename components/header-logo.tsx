@@ -4,7 +4,7 @@ import Link from "next/link";
 const HeaderLogo = () => {
   return (
     <Link href="/">
-      <div className="items-center hidden lg:flex">
+      <div className="hidden items-center lg:flex">
         <Image
           src="/next.svg"
           alt="Logo"
@@ -12,7 +12,7 @@ const HeaderLogo = () => {
           width={56}
           className="invert"
         />
-        <p className="font-semibold text-white text-2xl ml-2.5">Finance</p>
+        <p className="ml-2.5 text-2xl font-semibold text-white">Finance</p>
       </div>
     </Link>
   );
